@@ -1,6 +1,8 @@
 package com.fr.schoolmanager;
 
 import com.fr.schoolmanager.evaluation.Evaluation;
+import com.fr.schoolmanager.evaluation.EvaluationRepository;
+import com.fr.schoolmanager.evaluation.EvaluationStatus;
 import com.fr.schoolmanager.skills.Skill;
 import com.fr.schoolmanager.skills.SkillRepository;
 import com.fr.schoolmanager.students.Student;
@@ -23,7 +25,7 @@ public class LoadDatabase {
     private static final Logger logger = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(StudentRepository studentRepository, SkillRepository skillRepository) {
+    CommandLineRunner initDatabase(StudentRepository studentRepository, SkillRepository skillRepository, EvaluationRepository evaluationRepository) {
         return args -> {
 
             Student s1 = new Student("Bilbo", "Baggins",  LocalDate.of(2010, Month.JANUARY, 22),"bilbo@baggins.lotro");
@@ -42,6 +44,19 @@ public class LoadDatabase {
             logger.info("Preloading :" + studentRepository.save(s2));
             logger.info("Preloading :" + studentRepository.save(s3));
 
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s1.getId(), sk1.getId(), EvaluationStatus.ACQUIRED, LocalDate.of(2020, Month.MARCH, 22))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s2.getId(), sk1.getId(), EvaluationStatus.NOT_ACQUIRED, LocalDate.of(2020, Month.MARCH, 22))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s3.getId(), sk1.getId(), EvaluationStatus.IN_PROGRESS, LocalDate.of(2020, Month.MARCH, 22))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s1.getId(), sk2.getId(), EvaluationStatus.NOT_ACQUIRED, LocalDate.of(2020, Month.MARCH, 25))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s2.getId(), sk2.getId(), EvaluationStatus.IN_PROGRESS, LocalDate.of(2020, Month.MARCH, 25))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s3.getId(), sk2.getId(), EvaluationStatus.ACQUIRED, LocalDate.of(2020, Month.MARCH, 25))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s1.getId(), sk3.getId(), EvaluationStatus.IN_PROGRESS, LocalDate.of(2020, Month.APRIL, 10))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s2.getId(), sk3.getId(), EvaluationStatus.ACQUIRED, LocalDate.of(2020, Month.APRIL, 10))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s3.getId(), sk3.getId(), EvaluationStatus.NOT_ACQUIRED, LocalDate.of(2020, Month.APRIL, 10))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s1.getId(), sk4.getId(), EvaluationStatus.ACQUIRED, LocalDate.of(2020, Month.MAY, 2))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s2.getId(), sk4.getId(), EvaluationStatus.ACQUIRED, LocalDate.of(2020, Month.MAY, 2))));
+            logger.info("Evaluating : " + evaluationRepository.save(new Evaluation(s3.getId(), sk4.getId(), EvaluationStatus.ACQUIRED, LocalDate.of(2020, Month.MAY, 2))));
+            
         };
     }
 

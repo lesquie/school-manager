@@ -1,18 +1,16 @@
 package com.fr.schoolmanager.students;
 
-import com.fr.schoolmanager.skills.Skill;
-import com.fr.schoolmanager.skills.SkillStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import net.bytebuddy.description.NamedElement;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "STUDENTS")
 public class Student {
 
@@ -31,16 +29,6 @@ public class Student {
 
     private String legalResponsibleTwo;
 
-    @ManyToMany
-    @JoinTable(
-            name="STUDENT_SKILLS",
-            joinColumns = @JoinColumn(name = "STUDENTS_ID"),
-            inverseJoinColumns = @JoinColumn(name = "SKILLS_ID"))
-    private List<Skill> skills;
-
-    public Student() {
-    }
-
     public Student(String name, String familyName, String email) {
         this.name = name;
         this.familyName = familyName;
@@ -48,7 +36,6 @@ public class Student {
         this.email = email;
         this.legalResponsibleOne = "";
         this.legalResponsibleTwo = "";
-        this.skills = new ArrayList<>();
     }
 
     public Student(String name, String familyName, LocalDate birthDate, String email) {
@@ -58,7 +45,6 @@ public class Student {
         this.email = email;
         this.legalResponsibleOne = "";
         this.legalResponsibleTwo = "";
-        this.skills = new ArrayList<>();
     }
 
     public Student(String name, String familyName, LocalDate birthDate, String email, String legalResponsibleOne, String legalResponsibleTwo) {
@@ -68,17 +54,6 @@ public class Student {
         this.email = email;
         this.legalResponsibleOne = legalResponsibleOne;
         this.legalResponsibleTwo = legalResponsibleTwo;
-        this.skills = new ArrayList<>();
-    }
-
-    public Student(String name, String familyName, LocalDate birthDate, String email, String legalResponsibleOne, String legalResponsibleTwo, List<Skill> skills) {
-        this.name = name;
-        this.familyName = familyName;
-        this.birthDate = birthDate;
-        this.email = email;
-        this.legalResponsibleOne = legalResponsibleOne;
-        this.legalResponsibleTwo = legalResponsibleTwo;
-        this.skills = skills;
     }
 
 }

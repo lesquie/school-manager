@@ -1,10 +1,13 @@
 package com.fr.schoolmanager.students;
 
-import com.fr.schoolmanager.skills.Skill;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class StudentController {
@@ -17,7 +20,7 @@ public class StudentController {
 
     @GetMapping("/students")
     public List<Student> all() {
-        return (List<Student>) studentRepository.findAll();
+        return studentRepository.findAll();
     }
 
     @GetMapping("/student/{id}")
@@ -25,7 +28,7 @@ public class StudentController {
         return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
-    @PostMapping("/students")
+    @PostMapping("/student")
     public Student addStudent(@RequestBody Student newStudent) {
         return studentRepository.save(newStudent);
     }
@@ -53,11 +56,18 @@ public class StudentController {
         studentRepository.deleteById(id);
     }
 
-    @GetMapping("/student/{studentId}/skills")
-    public List<Skill> getStudentSkills(@PathVariable Long studentId) {
-        return studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(studentId)).getSkills();
+    @GetMapping("/student/export")
+    public void export(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=students_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        //response.getOutputStream().write(ExcelTools.convertToExcel(studentRepository.findAll(), new Student()));
     }
 
-    
 
 }

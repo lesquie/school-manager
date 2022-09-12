@@ -1,15 +1,18 @@
 package com.fr.schoolmanager.skills;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fr.schoolmanager.students.Student;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "SKILLS")
 public class Skill {
 
@@ -19,18 +22,7 @@ public class Skill {
 
     private String name;
 
-    private SkillStatus status;
-
-    @ManyToMany(mappedBy = "skills")
-    @JsonIgnore
-    private List<Student> students;
-
-    public Skill() {
-    }
-
-    public Skill(String name, SkillStatus status) {
+    public Skill(String name) {
         this.name = name;
-        this.status = status;
-        this.students = new ArrayList<>();
     }
 }

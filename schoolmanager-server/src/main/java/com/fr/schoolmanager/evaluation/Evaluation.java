@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -25,6 +24,12 @@ public class Evaluation {
 
     private EvaluationStatus status;
 
-    private Date evaluationDate;
+    private LocalDate evaluationDate;
 
+    public Evaluation(Long studentId, Long skillId, EvaluationStatus status, LocalDate evaluationDate) {
+        this.studentId = studentId;
+        this.skillId = skillId;
+        this.status = status;
+        this.evaluationDate = evaluationDate;
+    }
 }
