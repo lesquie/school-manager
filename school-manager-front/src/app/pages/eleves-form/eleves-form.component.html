@@ -1,0 +1,53 @@
+<div class="mx-5 my-5">
+    <div class="inline-flex">
+        <div class="mr-5">
+            <svg class="w-8 h-8 text-opacity-50 text-black cursor-pointer hover:text-blue-500" (click)="back()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </div>
+        <h2>{{ action ? "Modifier un élève" : "Ajouter un élève" }}</h2>
+    </div>
+    <hr>
+    <form [formGroup]="studentForm" (ngSubmit) = "onSubmit()" class="mx-16 space-y-10">
+        <div class="relative border-b-2 focus-within:border-blue-500 mt-10">
+            <input  type="text" name="studentName" placeholder=" " formControlName="name" #name class="block w-full appearance-none focus:outline-none bg-transparent" />
+            <label for="studentName" class="absolute top-0 -z-1 duration-300 origin-0">Prénom</label>
+        </div>
+    
+        <div class="relative border-b-2 focus-within:border-blue-500 ">
+            <input  type="text" name="familyName" placeholder=" " formControlName="familyName" #familyName class="block w-full appearance-none focus:outline-none bg-transparent" />
+            <label for="familyName" class="absolute top-0 -z-1 duration-300 origin-0">Nom</label>
+        </div>
+    
+        <div class="relative border-b-2 focus-within:border-blue-500 ">
+            <input type="date" name="birthdate" placeholder=" " formControlName="birthDate" #birthDate class="block w-full appearance-none focus:outline-none bg-transparent" />
+            <label for="birthdate" class="absolute top-0 -z-1 duration-300 origin-0">Date de naissance</label>
+        </div>
+    
+        <div class="relative border-b-2 focus-within:border-blue-500 ">
+            <input  type="text" name="email" placeholder=" " formControlName="email" #email class="block w-full appearance-none focus:outline-none bg-transparent" />
+            <label for="email" class="absolute top-0 -z-1 duration-300 origin-0">Email</label>
+        </div>
+    
+        <div class="relative border-b-2 focus-within:border-blue-500 ">
+            <input  type="text" name="legalResponsible1" placeholder=" " formControlName="legalResponsibleOne" #legalResponsibleOne class="block w-full appearance-none focus:outline-none bg-transparent" />
+            <label for="legalResponsible1" class="absolute top-0 -z-1 duration-300 origin-0">Responsable légal 1</label>
+        </div>
+    
+        <div class="relative border-b-2 focus-within:border-blue-500 ">
+            <input  type="text" name="legalResponsible2" placeholder=" " formControlName="legalResponsibleTwo" #legalResponsibleTwo class="block w-full appearance-none focus:outline-none bg-transparent" />
+            <label for="legalResponsible2" class="absolute top-0 -z-1 duration-300 origin-0">Responsable légal 2</label>
+        </div>
+        
+        <div class="flex justify-center">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full inline-flex items-center focus:outline-none" >
+                <svg viewBox="0 0 20 20" fill="currentColor" class="check w-5 h-5 mr-1">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                {{ this.action ? "Modifier" : "Ajouter" }} 
+            </button>
+        </div>
+    </form>
+
+</div>
+

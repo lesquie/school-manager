@@ -1,0 +1,47 @@
+<div class="mx-5 my-5">
+    <div class="inline-flex">
+        <div class="mr-5">
+            <svg class="w-8 h-8 text-opacity-50 text-black cursor-pointer hover:text-blue-500" (click)="back()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </div>
+        <h2>Compétence : {{ skill ? skill.name : ""}}</h2>
+    </div>
+    <hr class="mb-5">
+    <div *ngIf="skillEvaluations && skillEvaluations.length != 0">
+        <table mat-table [dataSource]="skillEvaluations" class="table-auto w-full text-left whitespace-no-wrap">    
+            <ng-container matColumnDef="eleves">
+                <th mat-header-cell *matHeaderCellDef>Elèves</th>
+                <td mat-cell *matCellDef="let e">{{ e.studentFamilyName + " " + e.studentName }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let e">le {{ e.evaluation.evaluationDate | date:"dd.MM.yyyy" }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Niveau d'acquisition</th>
+                <td mat-cell *matCellDef="let e">
+                    <div *ngIf='e.evaluation.status === "ACQUIRED"'>
+                        <div class="bg-light-green w-24 h-10"></div>
+                    </div>
+                    <div *ngIf='e.evaluation.status === "NOT_ACQUIRED"'>
+                        <div class="bg-light-red w-24 h-10"></div>
+                    </div> 
+                    <div *ngIf='e.evaluation.status === "IN_PROGRESS"'>
+                        <div class="bg-light-orange w-24 h-10"></div>
+                    </div> 
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="" >
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="!skillEvaluations || skillEvaluations.length == 0">
+        Aucune évaluation pour cette compétence.
+    </div>
+
+</div>
